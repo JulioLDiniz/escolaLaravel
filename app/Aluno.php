@@ -9,4 +9,8 @@ class Aluno extends Model
     protected $fillable = [
     	'nome'
     ];
+
+    public function turma(){
+    	return $this->belongsTo('App\Turma');
+    }
 }

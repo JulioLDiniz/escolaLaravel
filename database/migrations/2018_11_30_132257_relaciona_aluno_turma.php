@@ -14,7 +14,7 @@ class RelacionaAlunoTurma extends Migration
     public function up()
     {
         Schema::table('alunos', function(Blueprint $table){
-            $table->integer('turma_id')->unsigned()->after('id');
+            $table->integer('turma_id')->unsigned()->after('id')->nullable(true);
             $table->foreign('turma_id')->references('id')->on('turmas');
         });
     }

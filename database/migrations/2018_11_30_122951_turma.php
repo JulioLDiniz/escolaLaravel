@@ -16,7 +16,7 @@ class Turma extends Migration
         Schema::create('turmas', function(Blueprint $table){
             $table->increments('id');
             $table->string('titulo');
-            $table->string('turno');
+            $table->enum('turno',['matutino','vespertino','noturno']);
             $table->timestamps();
         });
     }
