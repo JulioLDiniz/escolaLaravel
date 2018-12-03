@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/cadastrar-aluno', 'AlunoController@create');
 Route::post('/cadastrar-turma', 'TurmaController@create');
 Route::get('/aluno/{id}', 'AlunoController@listOne');
+Route::get('/alunos', 'AlunoController@listAll');
+Route::delete('/excluir-aluno/{id}', 'AlunoController@delete');
+Route::patch('/alterar-aluno/{id}', 'AlunoController@update');
