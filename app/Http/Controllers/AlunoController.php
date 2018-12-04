@@ -12,10 +12,7 @@ class AlunoController extends Controller
 			$aluno = new Aluno();
 			$aluno->nome = request()->nome;
 			$aluno->turma_id = request()->turma_id;
-			if(!$aluno->save()){
-				throw new \Exception("Erro ao cadastrar aluno.");
-			}
-			$aluno->save();
+			$aluno->salvaAluno($aluno);
 			return response()->json(['message-success'=>'Aluno cadastrado com sucesso.']);
 		}catch(\Exception $e){
 			return response()->json(['message-error'=>$e->getMessage()]);
@@ -24,11 +21,8 @@ class AlunoController extends Controller
 
 	public function listOne($id){
 		try{
-			if(!Aluno::find($id)){
-				throw new \Exception('Aluno não encontrado.');
-			}
-			$aluno = Aluno::find($id);
-			$aluno->turma = $aluno->turma;
+			$aluno = new Aluno();
+			$aluno = $aluno->verificaSeExiste($id);
 			return response()->json($aluno);
 		}catch(\Exception $e){
 			return response()->json(['message-error'=>$e->getMessage()]);
@@ -36,11 +30,9 @@ class AlunoController extends Controller
 	}
 
 	public function listAll(){
-		try{
-			if(!Aluno::all()){
-				throw new \Exception('Erro ao buscar alunos.');
-			}
-			$alunos = Aluno::all();		
+		try{	
+			$alunos = new Aluno();
+			$alunos = $alunos->verificaSeExisteTodos();
 			return response()->json($alunos);
 		}catch(\Exception $e){
 			return response()->json(['message-error'=>$e->getMessage()]);
@@ -48,28 +40,22 @@ class AlunoController extends Controller
 	}
 	public function delete($id){
 		try{
-			if(!Aluno::find($id)){
-				throw new \Exception('Aluno não encontrado.');
-			}
-			$aluno = Aluno::find($id);
-			if(!$aluno->delete()){
-				throw new \Exception('Erro ao excluir aluno.');
-			}
+			 $aluno = new Aluno();
+			 $aluno->excluiAluno($id);
 			return response()->json(['message-success'=>'Aluno excluído com sucesso.']);
 		}catch(\Exception $e){
 			return response()->json(['message-error'=>$e->getMessage()]);
 		}
 	}
 
-	public function update($id){
+	public function update(Request $request, $id){
 		try{
 			if(!Aluno::find($id)){
 				throw new \Exception('Aluno não encontrado');
 			}
 			$aluno = Aluno::find($id);
-			$aluno->nome = request()->nome;
-			$aluno->turma_id = request()->turma_id;
-			$aluno->update();
+			$params = $request->all();
+			$aluno->update($params);
 			return response()->json(['message-success'=>'Aluno alterado com sucesso.']);
 		}catch(\Exception $e){
 			return response()->json(['message-error'=>$e->getMessage()]);

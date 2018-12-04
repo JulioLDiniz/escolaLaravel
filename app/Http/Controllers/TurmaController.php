@@ -12,10 +12,7 @@ class TurmaController extends Controller
     		$turma = new Turma();
     		$turma->titulo = request()->titulo;
     		$turma->turno = request()->turno;
-    		if(!$turma->save()){
-    			throw new \Exception("Erro ao cadastrar turma.");
-    		}
-    		$turma->save();
+    		$turma->salvaTurma($turma);
     		return response()->json(['message-success'=>'Turma cadastrada com sucesso.']);
     	}catch(\Exception $e){
     		return response()->json(['message-error'=>$e->getMessage()]);

@@ -22,4 +22,4 @@ Route::post('/cadastrar-turma', 'TurmaController@create');
 Route::get('/aluno/{id}', 'AlunoController@listOne');
 Route::get('/alunos', 'AlunoController@listAll');
 Route::delete('/excluir-aluno/{id}', 'AlunoController@delete');
-Route::patch('/alterar-aluno/{id}', 'AlunoController@update');
+Route::put('/alterar-aluno/{id}', 'AlunoController@update');
