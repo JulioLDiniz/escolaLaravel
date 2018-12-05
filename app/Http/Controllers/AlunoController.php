@@ -22,7 +22,7 @@ class AlunoController extends Controller
 	public function listOne($id){
 		try{
 			$aluno = new Aluno();
-			$aluno = $aluno->verificaSeExiste($id);
+			$aluno = $aluno->getAluno($id);
 			return response()->json($aluno);
 		}catch(\Exception $e){
 			return response()->json(['message-error'=>$e->getMessage()]);
@@ -50,12 +50,8 @@ class AlunoController extends Controller
 
 	public function update(Request $request, $id){
 		try{
-			if(!Aluno::find($id)){
-				throw new \Exception('Aluno não encontrado');
-			}
-			$aluno = Aluno::find($id);
-			$params = $request->all();
-			$aluno->update($params);
+			 $aluno = new Aluno();
+			 $aluno->alteraAluno($id, $request->all());
 			return response()->json(['message-success'=>'Aluno alterado com sucesso.']);
 		}catch(\Exception $e){
 			return response()->json(['message-error'=>$e->getMessage()]);

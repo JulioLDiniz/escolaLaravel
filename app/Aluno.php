@@ -18,9 +18,7 @@ class Aluno extends Model
 		if(!$this->find($id)){
 			throw new \Exception('Aluno não encontrado.');
 		}else{
-			$aluno = $this->find($id);
-			$aluno->turma = $aluno->turma;
-			return $aluno;
+			return $this->find($id);
 		}
 	}
 	public function verificaSeExisteTodos(){
@@ -36,6 +34,13 @@ class Aluno extends Model
 			return $alunos;
 		}
 	}
+
+	public function getAluno($id){
+		$aluno = $this->verificaSeExiste($id);
+		$aluno->turma = $aluno->turma;
+		return $aluno;
+	}
+
 	public function salvaAluno(Aluno $aluno){
 		if(!$this->save()){
 			throw new \Exception("Erro ao cadastrar aluno.");
@@ -50,6 +55,15 @@ class Aluno extends Model
 			throw new \Exception('Erro ao excluir aluno.');
 		}else{
 			$aluno->delete();
+		}
+	}
+
+	public function alteraAluno($id, $params){
+		$aluno = $this->verificaSeExiste($id);
+		if(!$aluno->update($params)){
+			throw new \Exception('Erro ao alterar aluno.');
+		}else{
+			$aluno->update($params);
 		}
 	}
 }
