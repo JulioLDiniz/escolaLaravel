@@ -18,4 +18,12 @@ class TurmaController extends Controller
     		return response()->json(['message-error'=>$e->getMessage()]);
     	}
     }
+
+    public function listOne($id){
+        $turma = Turma::find($id);
+        
+         $turma->professores = $turma->professores;
+
+        return response()->json($turma);
+    }
 }

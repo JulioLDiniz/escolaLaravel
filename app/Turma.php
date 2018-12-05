@@ -10,6 +10,10 @@ class Turma extends Model
 		'titulo', 'turno'
 	];
 
+	public function professores(){
+		return $this->belongsToMany('App\Professor');
+	}
+
 	public function salvaTurma(Turma $turma){
 		if(!$turma->save()){
 			throw new \Exception("Erro ao cadastrar turma.");
